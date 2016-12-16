@@ -69,7 +69,6 @@ module.exports = {
         // new ExtractTextPlugin("[name].css",{ allChunks : true,resolve : ['modules'] }),             // 提取CSS
         // new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js'),                           // 提取第三方库
         new HtmlwebpackPlugin({
-            title: 'Hello World app',
             template: 'test/index.html',
             filename: 'index.html',
             inject: true

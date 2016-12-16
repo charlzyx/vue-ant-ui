@@ -10,10 +10,10 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, '../docs'),
         // publicPath: '/docs/',
-        filename: 'antui.min.js',
-        library: 'antui',
-        libraryTarget: 'umd',
-        umdNamedDefine: true
+        filename: 'antui.js',
+        // library: 'antui',
+        // libraryTarget: 'umd',
+        // umdNamedDefine: true
     },
     // externals: {
     //     vue: {
@@ -23,9 +23,6 @@ module.exports = {
     //         amd: 'vue'
     //     }
     // },
-    resolve: {
-        extensions: ['', '.js', '.vue']
-    },
     module: {
         loaders: [{
             test: /\.vue$/,
@@ -52,7 +49,7 @@ module.exports = {
             test: /\.md/, loader: 'vue-markdown-loader' 
         }]
     },
-     vueMarkdown: {
+    vueMarkdown: {
         // markdown-it config
         preset: 'default',
         breaks: true,
@@ -98,11 +95,9 @@ module.exports = {
             }
         }),
         new HtmlwebpackPlugin({
-            title: 'Hello World app',
             template: 'test/index.html',
             filename: 'index.html',
             inject: true
-        }),
-        new webpack.optimize.OccurenceOrderPlugin()
+        })
     ]
 }
