@@ -9,6 +9,8 @@ import { ButtonGroup } from './components/button'
 import Icon from './components/icon'
 // Layout
 import { Col, Row } from './components/grid'
+// Navigation
+import Affix from './components/affix'
 // import { Select, Option, OptionGroup } from './components/select';
 
 const ANTUI = {
@@ -17,7 +19,8 @@ const ANTUI = {
     ButtonGroup: Button.Group,
     Icon,
     Col,
-    Row
+    Row,
+    Affix
     // TimelineItem: Timeline.Item,
 };
 

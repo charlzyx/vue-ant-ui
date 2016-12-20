@@ -32,6 +32,11 @@ const routes = [
     component: lazyLoading('pageGrid')
   },
   {
+    name: 'Affix',
+    path: '/affix',
+    component: lazyLoading('pageAffix')
+  },
+  {
     name: '404',
     path: '*',
     component: lazyLoading('Index.md')
@@ -39,7 +44,7 @@ const routes = [
 ]
 // 路由配置
 var router = new Router({
-  // mode: 'history',
+  mode: 'history',
   routes
 });
 

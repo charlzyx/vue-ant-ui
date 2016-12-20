@@ -1,25 +1,18 @@
----
-order: 1
+<!--order: 1
 title:
   zh-CN: 固定状态改变的回调
   en-US: Callback
----
 
-## zh-CN
+## zh-CN-->
 
 可以获得是否固定的状态。
 
-## en-US
+<!--## en-US
 
 Callback with affixed state.
 
-````jsx
-import { Affix, Button } from 'antd';
-
-ReactDOM.render(
-  <Affix offsetTop={120} onChange={affixed => console.log(affixed)}>
-    <Button>120px to affix top</Button>
-  </Affix>,
-  mountNode
-);
-````
+````html
+<ant-affix :on-change="is => this.isAffix = is">
+  <ant-button type="primary">当前状态: {{isAffix}}</ant-button>
+</ant-affix>
+````-->

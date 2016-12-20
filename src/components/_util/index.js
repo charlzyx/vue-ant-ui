@@ -15,18 +15,36 @@ export const curryingContains = (arr) => (val) => contains(arr, val);
  * $author kokoro
  * date 2016-08-06
  */
-export function getScroll(w, isTop) {
-  let ret = w[`page${isTop ? 'Y' : 'X'}Offset`];
-  const method = `scroll${isTop ? 'Top' : 'Left'}`;
-  if (typeof ret !== 'number') {
-    const d = w.document;
-    // ie6,7,8 standard mode
-    ret = d.documentElement[method];
-    if (typeof ret !== 'number') {
-      // quirks mode
-      ret = d.body[method];
-    }
+// export function getScroll(w, isTop) {
+//   let ret = w[`page${isTop ? 'Y' : 'X'}Offset`];
+//   const method = `scroll${isTop ? 'Top' : 'Left'}`;
+//   if (typeof ret !== 'number') {
+//     const d = w.document;
+//     // ie6,7,8 standard mode
+//     ret = d.documentElement[method];
+//     if (typeof ret !== 'number') {
+//       // quirks mode
+//       ret = d.body[method];
+//     }
+//   }
+//   return ret;
+// }
+
+export function getScroll(target, top){
+  if (typeof window === 'undefined') {
+    return 0;
   }
+
+  const prop = top ? 'pageYOffset' : 'pageXOffset';
+  const method = top ? 'scrollTop' : 'scrollLeft';
+  const isWindow = target === window;
+
+  let ret = isWindow ? target[prop] : target[method];
+  // ie6,7,8 standard mode
+  if (isWindow && typeof ret !== 'number') {
+    ret = window.document.documentElement[method];
+  }
+
   return ret;
 }
 
@@ -37,16 +55,43 @@ export function getScroll(w, isTop) {
  * $author kokoro
  * date 2016-08-06
  */
-export function getOffset(element) {
-  const rect = element.getBoundingClientRect();
-  const body = document.body;
-  const clientTop = element.clientTop || body.clientTop || 0;
-  const clientLeft = element.clientLeft || body.clientLeft || 0;
-  const scrollTop = getScroll(window, true);
-  const scrollLeft = getScroll(window);
+// export function getOffset(element) {
+//   const rect = element.getBoundingClientRect();
+//   const body = document.body;
+//   const clientTop = element.clientTop || body.clientTop || 0;
+//   const clientLeft = element.clientLeft || body.clientLeft || 0;
+//   const scrollTop = getScroll(window, true);
+//   const scrollLeft = getScroll(window);
+
+//   return {
+//     top: rect.top + scrollTop - clientTop,
+//     left: rect.left + scrollLeft - clientLeft
+//   };
+// }
+
+
+
+function getTargetRect(target) {
+  return target !== window ?
+    target.getBoundingClientRect() :
+    { top: 0, left: 0, bottom: 0 };
+}
+
+export function getOffset(element, target) {
+  const elemRect = element.getBoundingClientRect();
+  const targetRect = getTargetRect(target);
+
+  const scrollTop = getScroll(target, true);
+  const scrollLeft = getScroll(target, false);
+
+  const docElem = window.document.body;
+  const clientTop = docElem.clientTop || 0;
+  const clientLeft = docElem.clientLeft || 0;
 
   return {
-    top: rect.top + scrollTop - clientTop,
-    left: rect.left + scrollLeft - clientLeft
+    top: elemRect.top - targetRect.top +
+      scrollTop - clientTop,
+    left: elemRect.left - targetRect.left +
+      scrollLeft - clientLeft,
   };
 }
