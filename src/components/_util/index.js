@@ -1,3 +1,5 @@
+function noop () {}
+
 export const contains = (() => {
   return Array.prototype.includes
   ? (arr, value) => arr.includes(value)
@@ -5,30 +7,6 @@ export const contains = (() => {
 })();
 
 export const curryingContains = (arr) => (val) => contains(arr, val);
-
-/**
- * 获取滚动高度或者宽度
- * @method getScroll
- * @param  {[type]}  w     [description]
- * @param  {[type]}  isTop       [description]
- * @return {[type]}        [description]
- * $author kokoro
- * date 2016-08-06
- */
-// export function getScroll(w, isTop) {
-//   let ret = w[`page${isTop ? 'Y' : 'X'}Offset`];
-//   const method = `scroll${isTop ? 'Top' : 'Left'}`;
-//   if (typeof ret !== 'number') {
-//     const d = w.document;
-//     // ie6,7,8 standard mode
-//     ret = d.documentElement[method];
-//     if (typeof ret !== 'number') {
-//       // quirks mode
-//       ret = d.body[method];
-//     }
-//   }
-//   return ret;
-// }
 
 export function getScroll(target, top){
   if (typeof window === 'undefined') {
@@ -47,29 +25,6 @@ export function getScroll(target, top){
 
   return ret;
 }
-
-/**
- * 获取偏移值
- * @method getOffset
- * @param  {[type]}  element [description]
- * $author kokoro
- * date 2016-08-06
- */
-// export function getOffset(element) {
-//   const rect = element.getBoundingClientRect();
-//   const body = document.body;
-//   const clientTop = element.clientTop || body.clientTop || 0;
-//   const clientLeft = element.clientLeft || body.clientLeft || 0;
-//   const scrollTop = getScroll(window, true);
-//   const scrollLeft = getScroll(window);
-
-//   return {
-//     top: rect.top + scrollTop - clientTop,
-//     left: rect.left + scrollLeft - clientLeft
-//   };
-// }
-
-
 
 function getTargetRect(target) {
   return target !== window ?
@@ -96,7 +51,7 @@ export function getOffset(element, target) {
   };
 }
 
-export function getRequestAnimationFrame() {
+function getRequestAnimationFrame() {
   if (typeof window === 'undefined') {
     return () => {};
   }
@@ -107,4 +62,52 @@ export function getRequestAnimationFrame() {
   return prefix
     ? window[`${prefix}RequestAnimationFrame`]
     : callback => setTimeout(callback, 1000 / 60);
+}
+
+const reqAnimFrame = getRequestAnimationFrame()
+const easeInOutCubic = (t, b, c, d) => {
+  const cc = c - b
+  t /= d / 2
+  if (t < 1) {
+    return cc / 2 * t * t * t + b
+  }
+  return cc / 2 * ((t -= 2) * t * t + 2) + b
+}
+
+export function getOffsetTop (element) {
+  if (!element || !element.getClientRects().length) return 0
+
+  const rect = element.getBoundingClientRect();
+  if ( rect.width || rect.height ) {
+    const docElem = element.ownerDocument && element.ownerDocument.documentElement;
+    return  rect.top - docElem.clientTop;
+  } else {
+    return rect.top;
+  }
+}
+
+export function scrollTo(href, target = window, callback = noop) {
+  const scrollTop = getScroll(target, true)
+  let targetScrollTop
+  if (href === '#') {
+    targetScrollTop = 0
+  } else {
+    const targetElement = document.getElementById(href.substring(1))
+    if (!targetElement) return
+    const offsetTop = getOffsetTop(targetElement)
+    targetScrollTop = scrollTop + offsetTop
+  }
+  const startTime = Date.now()
+  const frameFunc = () => {
+    const timestamp = Date.now()
+    const time = timestamp - startTime
+    window.scrollTo(window.pageXOffset, easeInOutCubic(time, scrollTop, targetScrollTop, 450))
+    if (time < 450) {
+      reqAnimFrame(frameFunc)
+    } else {
+      callback()
+    }
+  }
+  reqAnimFrame(frameFunc)
+  history.pushState(null, '', href)
 }

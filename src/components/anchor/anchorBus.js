@@ -1,50 +1,5 @@
 import Vue from 'vue'
-import { getScroll, getRequestAnimationFrame } from '../_util'
-function noop () {}
-
-const reqAnimFrame = getRequestAnimationFrame()
-const easeInOutCubic = (t, b, c, d) => {
-  const cc = c - b
-  t /= d / 2
-  if (t < 1) {
-    return cc / 2 * t * t * t + b
-  }
-  return cc / 2 * ((t -= 2) * t * t + 2) + b
-}
-
-function getOffsetTop (element) {
-  if (!element || !element.getClientRects().length) return 0
-
-  const rect = element.getBoundingClientRect();
-  if ( rect.width || rect.height ) {
-    const docElem = element.ownerDocument && element.ownerDocument.documentElement;
-    return  rect.top - docElem.clientTop;
-  } else {
-    return rect.top;
-  }
-}
-
-function scrollTo(href, target = window, callback = noop) {
-  const scrollTop = getScroll(target, true)
-  const targetElement = document.getElementById(href.substring(1))
-  if (!targetElement) return
-  const offsetTop = getOffsetTop(targetElement)
-  const targetScrollTop = scrollTop + offsetTop
-  const startTime = Date.now()
-  const frameFunc = () => {
-    const timestamp = Date.now()
-    const time = timestamp - startTime
-    window.scrollTo(window.pageXOffset, easeInOutCubic(time, scrollTop, targetScrollTop, 450))
-    if (time < 450) {
-      reqAnimFrame(frameFunc)
-    } else {
-      callback()
-    }
-  }
-  reqAnimFrame(frameFunc)
-  history.pushState(null, '', href)
-}
-
+import { getOffsetTop, scrollTo } from '../_util'
 const AnchorBus = new Vue({
   data: () => ({
     links: [],

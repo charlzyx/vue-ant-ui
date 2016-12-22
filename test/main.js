@@ -42,6 +42,11 @@ const routes = [
     component: lazyLoading('pageAnchor')
   },
   {
+    name: 'BackTop',
+    path: '/backtop',
+    component: lazyLoading('pageBackTop')
+  },
+  {
     name: '404',
     path: '*',
     component: lazyLoading('Index.md')

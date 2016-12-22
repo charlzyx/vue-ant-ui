@@ -11,8 +11,8 @@ Anchor | 锚点
 ## 何时使用
 
 需要展现当前页面上可供跳转的锚点链接，以及快速在锚点之间跳转。
-
-## API
+> 注意:同一个组件中只能有一个实例
+## API <span id="API"></span>
 
 ### Anchor Props <span id="Anchor-Props"></span>
 

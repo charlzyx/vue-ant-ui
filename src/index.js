@@ -12,6 +12,7 @@ import { Col, Row } from './components/grid'
 // Navigation
 import Affix from './components/affix'
 import Anchor from './components/anchor'
+import BackTop from './components/back-top'
 // import { Select, Option, OptionGroup } from './components/select';
 
 const ANTUI = {
@@ -23,7 +24,8 @@ const ANTUI = {
     Row,
     Affix,
     Anchor,
-    AnchorLink: Anchor.Link
+    AnchorLink: Anchor.Link,
+    BackTop
     // TimelineItem: Timeline.Item,
 };
 

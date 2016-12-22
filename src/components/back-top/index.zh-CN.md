@@ -1,9 +1,9 @@
+BackTop | 回到顶部
 ---
-category: Components
-type: Navigation
-subtitle: 回到顶部
-title: BackTop
----
+> category: Components
+  type: Navigation
+  subtitle: 回到顶部
+  title: BackTop
 
 返回页面顶部的操作按钮。
 
@@ -22,3 +22,12 @@ title: BackTop
 |-------------|----------------|--------------------|--------------|
 | visibilityHeight    | 滚动高度达到此参数值才出现 `BackTop`   | Number | 400        |
 | onClick | 点击按钮的回调函数   | Function | -        |
+
+
+<back-top-demo></back-top-demo>
+<script>
+import BackTopDemo from 'abscomp/back-top/demo'
+export default {
+  components: { BackTopDemo }
+}
+</script>
