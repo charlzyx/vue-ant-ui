@@ -11,6 +11,7 @@ import Icon from './components/icon'
 import { Col, Row } from './components/grid'
 // Navigation
 import Affix from './components/affix'
+import Anchor from './components/anchor'
 // import { Select, Option, OptionGroup } from './components/select';
 
 const ANTUI = {
@@ -20,7 +21,9 @@ const ANTUI = {
     Icon,
     Col,
     Row,
-    Affix
+    Affix,
+    Anchor,
+    AnchorLink: Anchor.Link
     // TimelineItem: Timeline.Item,
 };
 

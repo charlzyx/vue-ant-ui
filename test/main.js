@@ -37,6 +37,11 @@ const routes = [
     component: lazyLoading('pageAffix')
   },
   {
+    name: 'Anchor',
+    path: '/anchor',
+    component: lazyLoading('pageAnchor')
+  },
+  {
     name: '404',
     path: '*',
     component: lazyLoading('Index.md')

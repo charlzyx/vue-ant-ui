@@ -9,7 +9,7 @@
   - <done>[Grid 栅格](/grid)</done>
 - ### *Navigation*
   - <done>[Affix 固钉](/affix)</done>
-  - <todo>Anchor 锚点</todo>
+  - <done>[Anchor 锚点](/anchor)</done>
   - <todo>BackTop 回到顶部</todo>
   - <todo>Breadcrumb 面包屑</todo>
   - <todo>Dropdown 下拉菜单</todo>
