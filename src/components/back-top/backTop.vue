@@ -15,7 +15,7 @@ export default {
   props: {
     visibilityHeight: {
       type: Number,
-      default: 100
+      default: 400
     },
     onClick: {
       type: Function,

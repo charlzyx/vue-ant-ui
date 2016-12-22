@@ -5,7 +5,6 @@ import 'core-js/fn/array/find-index'
 import CodeBox from './components/__site/CodeBox.vue'
 // General
 import Button from './components/button';
-import { ButtonGroup } from './components/button'
 import Icon from './components/icon'
 // Layout
 import { Col, Row } from './components/grid'
@@ -13,6 +12,7 @@ import { Col, Row } from './components/grid'
 import Affix from './components/affix'
 import Anchor from './components/anchor'
 import BackTop from './components/back-top'
+import Breadcrumb from './components/breadcrumb'
 // import { Select, Option, OptionGroup } from './components/select';
 
 const ANTUI = {
@@ -25,7 +25,9 @@ const ANTUI = {
     Affix,
     Anchor,
     AnchorLink: Anchor.Link,
-    BackTop
+    BackTop,
+    Breadcrumb,
+    BreadcrumbItem: Breadcrumb.Item
     // TimelineItem: Timeline.Item,
 };
 

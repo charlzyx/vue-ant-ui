@@ -1,27 +1,21 @@
----
-order: 3
+<!--order: 3
 title: 
   zh-CN: 分隔符
   en-US: Configuring the Separator
----
 
-## zh-CN
+## zh-CN-->
 
 使用 `separator=">"` 可以自定义分隔符。
-
+<!--
 ## en-US
 
 The separator can be customized by setting the separator property: separator=">"
 
-````jsx
-import { Breadcrumb } from 'antd';
-
-ReactDOM.render(
-  <Breadcrumb separator=">">
-    <Breadcrumb.Item>Home</Breadcrumb.Item>
-    <Breadcrumb.Item href="">Application Center</Breadcrumb.Item>
-    <Breadcrumb.Item href="">Application List</Breadcrumb.Item>
-    <Breadcrumb.Item>An Application</Breadcrumb.Item>
-  </Breadcrumb>
-, mountNode);
-````
+````html
+<ant-breadcrumb separator=">">
+  <ant-breadcrumb-item>Home</ant-breadcrumb-item>
+  <ant-breadcrumb-item><a href="">Application Center</a></ant-breadcrumb-item>
+  <ant-breadcrumb-item><a href="">Application List</a></ant-breadcrumb-item>
+  <ant-breadcrumb-item>An Application</ant-breadcrumb-item>
+</ant-breadcrumb>
+````-->

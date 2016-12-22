@@ -1,4 +1,4 @@
-# Vue Ant UI
+# Vue Ant UI2
 
 进度:
 - ### *General*
@@ -11,7 +11,7 @@
   - <done><router-link to="/affix">Affix 固钉</router-link></done>
   - <done><router-link to="/anchor">Anchor 锚点</router-link></done>
   - <done><router-link to="/backtop">BackTop 回到顶部</router-link></done>
-  - <todo>Breadcrumb 面包屑</todo>
+  - <done><router-link to="/breadcrumb">Breadcrumb 面包屑</router-link></done>
   - <todo>Dropdown 下拉菜单</todo>
   - <todo>Menu 导航菜单</todo>
   - <todo>Pagination 分页</todo>

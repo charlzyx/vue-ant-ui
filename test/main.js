@@ -47,6 +47,11 @@ const routes = [
     component: lazyLoading('pageBackTop')
   },
   {
+    name: 'Breadcrumb',
+    path: '/breadcrumb',
+    component: lazyLoading('pageBreadcrumb')
+  },
+  {
     name: '404',
     path: '*',
     component: lazyLoading('Index.md')
