@@ -49,7 +49,7 @@ const routes = [
 ]
 // 路由配置
 var router = new Router({
-  // mode: 'history',
+  mode: 'hash',
   routes
 });
 

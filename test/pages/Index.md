@@ -2,14 +2,14 @@
 
 进度:
 - ### *General*
-  - <done>[Button 按钮](/button)</done>
+  - <done><router-link to="/button">Button 按钮</router-link></done>
     - <todo>Menu.Button</todo>
-  - <done>[Icon 图标](/icon)</done>
+  - <done><router-link to="/icon">Icon 图标</router-link></done>
 - ### *Layout*
-  - <done>[Grid 栅格](/grid)</done>
+  - <done><router-link to="/grid">Grid 栅格</router-link></done>
 - ### *Navigation*
-  - <done>[Affix 固钉](/affix)</done>
-  - <done>[Anchor 锚点](/anchor)</done>
+  - <done><router-link to="/affix">Affix 固钉</router-link></done>
+  - <done><router-link to="/anchor">Anchor 锚点</router-link></done>
   - <todo>BackTop 回到顶部</todo>
   - <todo>Breadcrumb 面包屑</todo>
   - <todo>Dropdown 下拉菜单</todo>
