@@ -1,4 +1,4 @@
-import backTop from './backTop'
+import backTop from './BackTop'
 
 require('./style')
 export default backTop
