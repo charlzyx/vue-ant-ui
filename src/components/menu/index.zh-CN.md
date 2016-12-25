@@ -70,3 +70,9 @@ export default {
   components: { MenuDemo }
 }
 </script>
+
+
+| EventName | target | params |
+|-----------|--------|--------|
+| `menu:item-selected` | MenuItem | `String`: xkey |
+| `menu:item-deselected-all`| MenuItem |- |

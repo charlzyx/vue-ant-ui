@@ -10,6 +10,17 @@
 </template>
 <script>
 function noop () {}
+function activeXkeyPath (vm, path) {
+  if (vm.$data._isMenuRoot) {
+    let xpath = path
+    console.log(xpath)
+    return xpath
+  } else {
+    vm.xkey && path.push(vm.xkey)
+    return vm.$parent && activeXkeyPath(vm.$parent, path)
+  }
+}
+
 export default {
   name: 'ant-menu-item',
   props: {
@@ -21,17 +32,14 @@ export default {
       type: Boolean,
       default: false
     },
-    selected: {
-      type: Boolean,
-      default: false
-    },
     xkey: {
       type: String,
       default: ''
     }
   },
   data: () => ({
-    active: false
+    active: false,
+    selected: false
   }),
   computed: {
     cls () {
@@ -49,14 +57,23 @@ export default {
   },
   methods: {
     _click () {
-      this.rootHub.$emit('menu-item-selected', this.xkey)
+      const ACTIVEPATH = activeXkeyPath(this, [])
+      this.rootHub.$emit('menu:item-deselect-others', ACTIVEPATH)
+      // MenuItem, SubMenu > MenuItem || SubMenu > MenuItem > MenuItem || Menu > MenuItem
+      this.rootHub.$emit('menu:item-selected', ACTIVEPATH)
     },
     _mouseEnter () {
       this.active = true
     },
     _mouseLeave () {
       this.active = false
+    },
+    shouldDeselect (path) {
+      this.selected = path.indexOf(this.xkey) > -1
     }
+  },
+  created (){
+    this.rootHub.$on('menu:item-deselect-others', this.shouldDeselect)
   }
 }
 </script>

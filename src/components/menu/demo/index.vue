@@ -9,7 +9,7 @@
         <ant-icon type="appstore"></ant-icon>
         Navigation Two
       </ant-menu-item>
-      <ant-submenu>
+      <ant-submenu xkey="sub1">
         <span slot="title"><ant-icon type='setting'></ant-icon>Navigation Three - Submenu</span>
         <ant-menu-item-group title="Item 1">
           <ant-menu-item xkey="setting:1">Option 1</ant-menu-item>

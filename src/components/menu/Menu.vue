@@ -51,15 +51,16 @@ export default {
     }
   },
   data: () => ({
-    uid: null 
+    uid: null,
+    _isMenuRoot: true
   }),
   created () {
     let uid = (new Hub()).uid
     this.rootHub = Hub.getHubByUid(uid)
-    this.rootHub.$on('menu-item-selected', this.selectItem)
+    this.rootHub.$on('menu:item-selected', this.selectItem)
   },
   beforeDestory () {
-    this.rootHub.$off('menu-item-selected', this.selectItem)
+    this.rootHub.$off('menu:item-selected', this.selectItem)
   }
 }
 </script>

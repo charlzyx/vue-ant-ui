@@ -25,10 +25,6 @@ export default {
       type: Boolean,
       default: false
     },
-    selected: {
-      type: Boolean,
-      default: false
-    },
     isOpen: {
       type: Boolean,
       default: false
@@ -43,6 +39,7 @@ export default {
     return {
       mode: this.$parent.mode,
       active: false,
+      selected: false,
       delay: null
     }
   },
@@ -85,8 +82,15 @@ export default {
       this.delay = setTimeout(() => {
         this.active = false
       }, 300)
-      
+    },
+    shouldDeselect (path) {
+      console.log('oooo', path)
+      console.log('iiii', this.xkey)
+      this.selected = path.indexOf(this.xkey) > -1
     }
+  },
+  created (){
+    this.rootHub.$on('menu:item-deselect-others', this.shouldDeselect)
   }
 }
 </script>
