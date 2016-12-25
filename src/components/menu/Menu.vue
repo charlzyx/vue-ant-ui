@@ -46,8 +46,8 @@ export default {
     }
   },
   methods: {
-    selectItem (xkey) {
-      console.log('xkey', xkey)
+    selectItem (path) {
+      console.log('path', path)
     }
   },
   data: () => ({
