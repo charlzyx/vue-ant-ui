@@ -33,12 +33,12 @@ module.exports = {
             exclude: /node_modules/
         }, {
             test: /\.css$/,
-            loader: 'style!css!autoprefixer'
+            loader: ExtractTextPlugin.extract('css!autoprefixer')
         }, {
             test: /\.less$/,
-            loader: 'style!css!less'
+            loader: ExtractTextPlugin.extract('css!less')
         }, { 
-            test: /\.(scss|sass)$/, loader: 'style!css!sass?sourceMap'
+            test: /\.(scss|sass)$/, loader: 'css!sass?sourceMap'
         },{
             test: /\.(gif|jpg|png|woff|svg|eot|ttf)\??.*$/,
             loader: 'url?limit=8192'
@@ -62,7 +62,7 @@ module.exports = {
     'vue': {
         loaders: {
             css: ExtractTextPlugin.extract(
-                "style-loader",
+                "vue-style-loader",
                 "css-loader?sourceMap"
             ),
             less: ExtractTextPlugin.extract(

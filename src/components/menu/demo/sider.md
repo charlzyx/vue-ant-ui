@@ -1,70 +1,48 @@
----
-order: 1
+<!--order: 1
 title:
   zh-CN: 内嵌菜单
   en-US: Vertical menu with inline children
----
 
-## zh-CN
+## zh-CN-->
 
 垂直菜单，子菜单内嵌在菜单区域。
-
+<!--
 ## en-US
 
 Vertical menu with inline submenus.
 
 ````jsx
-import { Menu, Icon } from 'antd';
-const SubMenu = Menu.SubMenu;
-const MenuItemGroup = Menu.ItemGroup;
-
-const Sider = React.createClass({
-  getInitialState() {
-    return {
-      current: '1',
-    };
-  },
-  handleClick(e) {
-    console.log('click ', e);
-    this.setState({
-      current: e.key,
-    });
-  },
-  render() {
-    return (
-      <Menu onClick={this.handleClick}
-        style={{ width: 240 }}
-        defaultOpenKeys={['sub1']}
-        selectedKeys={[this.state.current]}
-        mode="inline"
-      >
-        <SubMenu key="sub1" title={<span><Icon type="mail" /><span>Navigation One</span></span>}>
-          <MenuItemGroup title="Item 1">
-            <Menu.Item key="1">Option 1</Menu.Item>
-            <Menu.Item key="2">Option 2</Menu.Item>
-          </MenuItemGroup>
-          <MenuItemGroup title="Item 2">
-            <Menu.Item key="3">Option 3</Menu.Item>
-            <Menu.Item key="4">Option 4</Menu.Item>
-          </MenuItemGroup>
-        </SubMenu>
-        <SubMenu key="sub2" title={<span><Icon type="appstore" /><span>Navigation Two</span></span>}>
-          <Menu.Item key="5">Option 5</Menu.Item>
-          <Menu.Item key="6">Option 6</Menu.Item>
-          <SubMenu key="sub3" title="Submenu">
-            <Menu.Item key="7">Option 7</Menu.Item>
-            <Menu.Item key="8">Option 8</Menu.Item>
-          </SubMenu>
-        </SubMenu>
-        <SubMenu key="sub4" title={<span><Icon type="setting" /><span>Navigation Three</span></span>}>
-          <Menu.Item key="9">Option 9</Menu.Item>
-          <Menu.Item key="10">Option 10</Menu.Item>
-          <Menu.Item key="11">Option 11</Menu.Item>
-          <Menu.Item key="12">Option 12</Menu.Item>
-        </SubMenu>
-      </Menu>
-    );
-  },
-});
-ReactDOM.render(<Sider />, mountNode);
-````
+<ant-menu mode="inline" 
+  xstyle="width: 240px" 
+  :default-open-keys="['sub1', 'sub4']"
+  :default-selected-keys="['1']">
+  <ant-submenu xkey="sub1">
+    <span slot="title"><ant-icon type='mail'></ant-icon>Navigation One</span>
+    <ant-menu-item-group title="Item 1">
+      <ant-menu-item xkey="1">Option 1</ant-menu-item>
+      <ant-menu-item xkey="2">Option 2</ant-menu-item>
+    </ant-menu-item-group>
+    <ant-menu-item-group title="Item 2">
+      <ant-menu-item xkey="3">Option 3</ant-menu-item>
+      <ant-menu-item xkey="4">Option 4</ant-menu-item>
+    </ant-menu-item-group>
+  </ant-submenu>
+  <ant-submenu xkey="sub2">
+    <span slot="title"><ant-icon type='appstore'></ant-icon>Navigation Two</span>
+    <ant-menu-item xkey="5">Option 5</ant-menu-item>
+    <ant-menu-item xkey="6">Option 6</ant-menu-item>
+    <ant-submenu xkey="sub3">
+      <span slot="title">Submenu</span>
+      <ant-menu-item xkey="7">Option 7</ant-menu-item>
+      <ant-menu-item xkey="8">Option 8</ant-menu-item>
+    </ant-submenu>
+  </ant-submenu>
+  <ant-submenu  xkey="sub4">
+    <span slot="title"><ant-icon type='setting'></ant-icon>Navigation Three</span>
+    <ant-menu-item xkey="9">Option 9</ant-menu-item>
+    <ant-menu-item xkey="10">Option 10</ant-menu-item>
+    <ant-menu-item xkey="11">Option 11</ant-menu-item>
+    <ant-menu-item xkey="12">Option 12</ant-menu-item>
+  </ant-submenu>
+</ant-menu>
+````-->

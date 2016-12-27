@@ -4,22 +4,22 @@
       @mouseEnter="_mouseEnter"
       @mouseLeave="_mouseLeave"
       @click="_click"
+      :style="levelStyle"
       >
     <slot></slot>
   </li>
 </template>
 <script>
 function noop () {}
-function activeXkeyPath (vm, path) {
-  if (vm.$data._isMenuRoot) {
-    let xpath = path
-    console.log(xpath)
-    return xpath
+function updateSelectedKeys (vm, path) {
+  if (vm._isMenuRoot) {
+    return path
   } else {
     vm.xkey && path.push(vm.xkey)
-    return vm.$parent && activeXkeyPath(vm.$parent, path)
+    return vm.$parent && updateSelectedKeys(vm.$parent, path)
   }
 }
+import getLevelBySubMenu from '../_util/getLevelBySubMenu'
 
 export default {
   name: 'ant-menu-item',
@@ -35,13 +35,28 @@ export default {
     xkey: {
       type: String,
       default: ''
+    },
+    inlineIndent: {
+      type: Number,
+      default: 24
     }
   },
   data: () => ({
-    active: false,
-    selected: false
+    active: false
   }),
   computed: {
+    rootHub () {
+      return this.$parent.rootHub || null
+    },
+    mode () {
+      return this.$parent.mode
+    },
+    selectedKeys () {
+      return this.$parent.selectedKeys
+    },
+    selected () {
+      return this.selectedKeys.indexOf(this.xkey) > -1
+    },
     cls () {
       const { prefixCls, active, selected, disabled } = this
       return {
@@ -51,29 +66,28 @@ export default {
         [`${prefixCls}-disabled`]: disabled
       }
     },
-    rootHub () {
-      return this.$parent.rootHub || null
+    levelStyle () {
+      const level = getLevelBySubMenu(this, 1)
+      return this.mode === 'inline' 
+        ? `padding-left: ${this.inlineIndent * level}px` 
+        : null
     }
   },
   methods: {
     _click () {
-      const ACTIVEPATH = activeXkeyPath(this, [])
-      this.rootHub.$emit('menu:item-deselect-others', ACTIVEPATH)
+      if (this.disabled) return
+      const NEWSELECTEDKEYS = updateSelectedKeys(this, [])
       // MenuItem, SubMenu > MenuItem || SubMenu > MenuItem > MenuItem || Menu > MenuItem
-      this.rootHub.$emit('menu:item-selected', ACTIVEPATH)
+      this.rootHub.$emit('menu:update-selected-keys', NEWSELECTEDKEYS)
     },
     _mouseEnter () {
       this.active = true
     },
     _mouseLeave () {
       this.active = false
-    },
-    shouldDeselect (path) {
-      this.selected = path.indexOf(this.xkey) > -1
     }
   },
   created (){
-    this.rootHub.$on('menu:item-deselect-others', this.shouldDeselect)
   }
 }
 </script>

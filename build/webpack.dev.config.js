@@ -42,16 +42,8 @@ module.exports = {
     },
     'vue': {
         loaders: {
-            css: 'style!css?sourceMap',
+            css: 'vue-style!css?sourceMap',
             less: 'vue-style!css!less',
-            // css: ExtractTextPlugin.extract(
-            //     "style-loader",
-            //     "css-loader?sourceMap"
-            // ),
-            // less: ExtractTextPlugin.extract(
-            //     'vue-style-loader',
-            //     'css-loader!less-loader'
-            // ),
             js: 'babel'
         }
     },

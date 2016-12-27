@@ -16,15 +16,14 @@ export default {
       type: String,
       default: "ant-menu-item-group"
     },
-    title: String,
-    visiable: {
-      type: Boolean,
-      default: false
-    }
+    title: String
   },
   computed: {
     rootHub () {
       return this.$parent.rootHub || null
+    },
+    selectedKeys () {
+      return this.$parent.selectedKeys
     },
     cls () {
       return {

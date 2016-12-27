@@ -5,15 +5,28 @@
     :xkey="xkey"
     :class="cls"
     >
-    <div :class="titleCls" >
+    <div :class="titleCls" @click="_titleClick" :style="levelStyle">
       <slot name="title"></slot>
     </div>
-    <ul :class="subCls">
-      <slot></slot>
-    </ul>
+    <transition name="fade">
+      <ul :class="subCls" v-show="mode === 'inline' ? open : active">
+        <slot></slot>
+      </ul>
+    </transition>
   </li>
 </template>
 <script>
+function updateCurrentOpenChain (vm, path) {
+  if (vm._isMenuRoot) {
+    return path
+  } else {
+    vm._isSubMenu && vm.xkey && path.push(vm.xkey)
+    return vm.$parent && updateCurrentOpenChain(vm.$parent, path)
+  }
+}
+
+import getLevelBySubMenu from '../_util/getLevelBySubMenu'
+
 export default {
   name: 'ant-submenu',
   props: {
@@ -25,36 +38,54 @@ export default {
       type: Boolean,
       default: false
     },
-    isOpen: {
-      type: Boolean,
-      default: false
-    },
     xkey: {
       type: String,
       default: ''
+    },
+    inlineIndent: {
+      type: Number,
+      default: 24
     },
     onTitleClick: Function
   },
   data () {
     return {
-      mode: this.$parent.mode,
       active: false,
-      selected: false,
       delay: null
     }
   },
   computed: {
+    _isSubMenu () {return true},
     rootHub () {
       return this.$parent.rootHub || null
     },
+    selectedKeys () {
+      return this.$parent.selectedKeys
+    },
+    openKeys () {
+      return this.$parent.openKeys
+    },
+    focusSubmenu () {
+      return this.$parent.focusSubmenu
+    },
+    mode () {
+      return this.$parent.mode
+    },
+    selected () {
+      return this.selectedKeys.indexOf(this.xkey) > -1
+    },
+    open () {
+      const { openKeys, xkey } = this
+      return openKeys.indexOf(xkey) > -1
+    },
     cls () {
-      const { prefixCls, selected, $parent, active, isOpen } = this
+      const { prefixCls, selected, mode, active, open } = this
       const submenuCls = `${prefixCls}-submenu`
       return {
         [`${submenuCls}`]: true,
-        [`${submenuCls}-${$parent.mode}`]: true,
+        [`${submenuCls}-${mode}`]: true,
         [`${submenuCls}-selected`]: selected,
-        [`${submenuCls}-open`]: active,
+        [`${submenuCls}-open`]: open || active,
         [`${submenuCls}-active`]: active
       }
     },
@@ -64,13 +95,19 @@ export default {
       }
     },
     subCls () {
-      const { prefixCls, $parent, visiable, active } = this
+      const { prefixCls, mode, open, active } = this
       return {
         [`${prefixCls}`]: true,
-        [`${prefixCls}-vertical`]: true,
+        [`${prefixCls}-${mode}`]: true,
         [`${prefixCls}-sub`]: true,
-        [`${prefixCls}-hidden`]: !active
+        // [`${prefixCls}-hidden`]: mode === 'inline' ? !open : !active
       }
+    },
+    levelStyle () {
+      const level = getLevelBySubMenu(this, 0)
+      return this.mode === 'inline' 
+        ? `padding-left: ${this.inlineIndent * level}px` 
+        : null
     }
   },
   methods: {
@@ -81,16 +118,38 @@ export default {
     _mouseLeave () {
       this.delay = setTimeout(() => {
         this.active = false
-      }, 300)
+      }, 233)
     },
-    shouldDeselect (path) {
-      console.log('oooo', path)
-      console.log('iiii', this.xkey)
-      this.selected = path.indexOf(this.xkey) > -1
+    _titleClick () {
+      const { mode, open, openKeys, xkey, focusSubmenu } = this
+      // 只在 'inline' 模式下生效
+      if (mode === 'inline') {
+        let newOpenKeys
+        newOpenKeys = open
+                      ? openKeys.map(key => key === xkey ? true : key)
+                                .filter(key => key !== true)
+                      : focusSubmenu
+                        ? updateCurrentOpenChain(this, [])
+                        : openKeys.push(xkey) && openKeys
+        this.rootHub.$emit('menu:update-open-keys', newOpenKeys)
+      }
     }
   },
   created (){
-    this.rootHub.$on('menu:item-deselect-others', this.shouldDeselect)
   }
 }
 </script>
+<style>
+.xfade-leave-active,
+.xfade-enter-active{
+  transition: all 1s;
+}
+.xfade-enter,
+.xfade-leave-active{
+  background: #cba;
+}
+.xfade-leave,
+.xfade-enter-active{
+  background: #cab;
+}
+</style>

@@ -1,10 +1,10 @@
+Menu | 导航菜单
 ---
-category: Components
-cols: 1
-type: Navigation
-title: Menu
-subtitle: 导航菜单
----
+> category: Components
+  cols: 1
+  type: Navigation
+  title: Menu
+  subtitle: 导航菜单
 
 为页面和功能提供导航的菜单列表。
 
@@ -29,12 +29,10 @@ subtitle: 导航菜单
 | openKeys | 当前展开的 SubMenu 菜单项 key 数组 | Array |  |
 | defaultOpenKeys | 初始展开的 SubMenu 菜单项 key 数组 |  |      |
 | onOpenChange | SubMenu 展开/关闭的回调 | Function(openKeys: string[]) | noop |
-| onSelect | 被选中时调 | Function({ item, key, selectedKeys }) | 无   |
-| onDeselect | 取消选中时调用，仅在 multiple 生效 | Function({ item, key, selectedKeys }) | - |
-| onClick | 点击 menuitem 调用此函数，参数为 {item, key, keyPath} | function | - |
-| style | 根节点样式 | Object | |
+| onClick | 点击 menuitem 的回调| Function(selectedKeys: string[]) | noop |
+| xstyle | 根节点样式 | String | |
+| focusSubmenu| 是否只展开当前父级菜单 | Boolean | false |
 
-> More options in [rc-menu](https://github.com/react-component/menu#api)
 
 ### Menu.Item props
 
@@ -49,20 +47,14 @@ subtitle: 导航菜单
 |----------|----------------|----------|--------------|
 | disabled    | 是否禁用 | Boolean   |  false  |
 | key | 唯一标志 |  String |  |
-| title    | 子菜单项值 | String or React.Element   |    |
-| children | 子菜单的菜单项 | (MenuItem or SubMenu)[] |  |
-| onTitleClick | 点击子菜单标题 | Function({ eventKey, domEvent }) |  |
+| title    | 子菜单项值 | `slot="title"`   |    |
 
 ### Menu.ItemGroup props
 
 | 参数     | 说明           | 类型     | 默认值       |
 |----------|----------------|----------|--------------|
-| title    | 分组标题       | String or React.Element |    |
-| children | 分组的菜单项    | MenuItem[] |  |
+| title    | 分组标题       | `slot="title"` |    |
 
-### Menu.Divider
-
-菜单项分割线，只用在弹出菜单内。
 
 <script>
 import MenuDemo from 'abscomp/menu/demo'
@@ -70,9 +62,3 @@ export default {
   components: { MenuDemo }
 }
 </script>
-
-
-| EventName | target | params |
-|-----------|--------|--------|
-| `menu:item-selected` | MenuItem | `String`: xkey |
-| `menu:item-deselected-all`| MenuItem |- |
