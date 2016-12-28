@@ -51,3 +51,8 @@ export default {
   }
 }
 </script>
+<style>
+.highlight-wrapper{
+  padding-left: 16px;
+}
+</style>

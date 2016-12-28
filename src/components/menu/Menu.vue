@@ -50,7 +50,6 @@ export default {
       default: noop
     },
     xstyle: {
-      type: String,
       default: ''
     }
   },

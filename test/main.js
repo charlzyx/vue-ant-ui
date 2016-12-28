@@ -52,6 +52,11 @@ const routes = [
     component: lazyLoading('pageBreadcrumb')
   },
   {
+    name: 'DropDown',
+    path: '/dropdown',
+    component: lazyLoading('pageDropDown')
+  },
+  {
     name: 'Menu',
     path: '/menu',
     component: lazyLoading('pageMenu')

@@ -37,3 +37,11 @@ title: Dropdown
 | overlay     | 菜单         | [Menu](/components/menu/) | -     |
 | visible     | 菜单是否显示 | Boolean   | -           |
 | onVisibleChange  | 菜单显示状态改变时调用，参数为 { visible } | Function | - |
+
+<dropdown-demo></dropdown-demo>
+<script>
+import DropdownDemo from 'abscomp/dropdown/demo/index'
+export default {
+  components: { DropdownDemo }
+}
+</script>

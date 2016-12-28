@@ -13,7 +13,7 @@ import Affix from './components/affix'
 import Anchor from './components/anchor'
 import BackTop from './components/back-top'
 import Breadcrumb from './components/breadcrumb'
-
+import Dropdown from './components/dropdown'
 import Menu from './components/menu'
 // import { Select, Option, OptionGroup } from './components/select';
 
@@ -33,7 +33,10 @@ const ANTUI = {
     Menu,
     MenuItem: Menu.Item,
     MenuItemGroup: Menu.ItemGroup,
-    Submenu: Menu.SubMenu
+    MenuDivider: Menu.Divider,
+    Submenu: Menu.SubMenu,
+    Dropdown,
+    DropdownButton: Dropdown.Button
     // TimelineItem: Timeline.Item,
 };
 

@@ -1,37 +1,58 @@
 <template>
   <div>
-    <div class="ant-dropdown-link ant-dropdown-trigger">
+    <div class="ant-dropdown-link ant-dropdown-trigger"
+      @mouseenter="_mouseenter"
+      @mouseleave="_mouseleave"
+      @click="_click">
       <slot name="link"></slot>
     </div>
-    <div class="ant-dropdown">
+    <div class="ant-dropdown" v-show="visible">
       <slot name="overlay"></slot>
     </div>
   </div>
 </template>
 <script>
-// trigger?: Array<'click' | 'hover'>;
-// overlay: React.ReactNode;
-// style?: React.CSSProperties;
-// onVisibleChange?: (e: {visible: boolean}) => void;
-// visible?: boolean;
-// align?: Object;
-// getPopupContainer?: () => HTMLElement;
-// prefixCls?: string;
+function noop () {}
+import { curryingContains } from '../_util'
+
 export default {
   name: 'ant-dropdown',
   props: {
     trigger: {
       validator: function (val) {
-        return ['click', 'hover'].indexOf(val) > -1
-      }
+        return curryingContains(['click', 'hover'], val)
+      },
+      default: 'hover'
     },
-    overlay: null, // 应该是没必要
-    style: null,
-    onVisibleChange: Function,
-    visible: Boolean,
+    onVisibleChange: {
+      type: Function,
+      default: noop
+    },
     prefixCls: {
       type: String,
       default: 'ant-dropdown'
+    }
+  },
+  data: () => ({
+    hover: false,
+    open: false
+    // visible: false
+  }),
+  computed: {
+    visible () {
+      return true
+      // return this.trigger === 'hover' ? this.hover : this.open
+    }
+  },
+  methods: {
+    _click () {
+      this.open = !this.open
+    },
+    _mouseenter () {
+      this.hover = true
+    },
+    _mouseleave () {
+      this.hover = false
     }
   }
 }

@@ -12,8 +12,8 @@
   - <done><router-link to="/anchor">Anchor 锚点</router-link></done>
   - <done><router-link to="/backtop">BackTop 回到顶部</router-link></done>
   - <done><router-link to="/breadcrumb">Breadcrumb 面包屑</router-link></done>
-  - <todo>Dropdown 下拉菜单</todo>
-  - <todo><router-link to="/menu">Menu 导航菜单</router-link></todo>
+  - <todo><router-link to="/dropdown">Dropdown 下拉菜单</router-link></todo>
+  - <done><router-link to="/menu">Menu 导航菜单</router-link></done>
   - <todo>Pagination 分页</todo>
   - <todo>Steps 步骤条</todo>
   - <todo>Tabs 标签页</todo>

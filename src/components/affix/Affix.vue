@@ -31,22 +31,18 @@ export default {
     placeholderStyle: null
   }),
   mounted: function() {
-    if (this.targetId) {
-      document.getElementById(this.targetId).addEventListener('scroll', this.handleScroll);
-      document.getElementById(this.targetId).addEventListener('resize', this.handleScroll);
-    } else {
-      document.addEventListener('scroll', this.handleScroll);
-      document.addEventListener('resize', this.handleScroll);
-    }
+    const target = this.targetId 
+      ? document.getElementById(this.targetId) || document
+      : document
+      target.addEventListener('scroll', this.handleScroll)
+      target.addEventListener('resize', this.handleScroll)
   },
   beforeDestroy: function() {
-    if (this.targetId) {
-      document.getElementById(this.targetId).removeEventListener('scroll', this.handleScroll);
-      document.getElementById(this.targetId).removeEventListener('resize', this.handleScroll);
-    } else {
-      document.removeEventListener('scroll', this.handleScroll);
-      document.removeEventListener('resize', this.handleScroll);
-    }
+    const target = this.targetId 
+      ? document.getElementById(this.targetId) || document
+      : document
+      target.removeEventListener('scroll', this.handleScroll)
+      target.removeEventListener('resize', this.handleScroll)
   },
   methods: {
     handleScroll(e) {
