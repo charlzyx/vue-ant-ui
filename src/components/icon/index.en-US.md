@@ -63,7 +63,7 @@ ReactDOM.render(<IconSet className="icons" catigory="other" />, mountNode);
 | type | Type of ant design icons | string | - |
 | spin | Rotate icon with animation | boolean | false |
 
-<style>
+<style scoped>
 .markdown .icons {
   width: 100%;
 }
