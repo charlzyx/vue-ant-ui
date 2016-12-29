@@ -1,8 +1,8 @@
 <template>
   <li :xkey="xkey" 
       :class="cls"
-      @mouseEnter="_mouseEnter"
-      @mouseLeave="_mouseLeave"
+      @mouseenter="active = true"
+      @mouseleave="active = false"
       @click="_click"
       :style="levelStyle"
       >
@@ -24,10 +24,6 @@ import getLevelBySubMenu from '../_util/getLevelBySubMenu'
 export default {
   name: 'ant-menu-item',
   props: {
-    prefixCls: {
-      type: String,
-      default: 'ant-menu-item'
-    },
     disabled: {
       type: Boolean,
       default: false
@@ -57,13 +53,20 @@ export default {
     selected () {
       return this.selectedKeys.indexOf(this.xkey) > -1
     },
+    prefixCls () {
+      const prefix = this.$parent && this.$parent.prefixCls
+          ? this.$parent.prefixCls
+          : 'ant-menu'
+      return prefix
+    },
     cls () {
       const { prefixCls, active, selected, disabled } = this
+      const prefix = prefixCls + '-item'
       return {
-        [`${prefixCls}`]: true,
-        [`${prefixCls}-active`]: active,
-        [`${prefixCls}-selected`]: selected,
-        [`${prefixCls}-disabled`]: disabled
+        [`${prefix}`]: true,
+        [`${prefix}-active`]: active,
+        [`${prefix}-selected`]: selected,
+        [`${prefix}-disabled`]: disabled
       }
     },
     levelStyle () {
@@ -79,12 +82,6 @@ export default {
       const NEWSELECTEDKEYS = updateSelectedKeys(this, [])
       // MenuItem, SubMenu > MenuItem || SubMenu > MenuItem > MenuItem || Menu > MenuItem
       this.rootHub.$emit('menu:update-selected-keys', NEWSELECTEDKEYS)
-    },
-    _mouseEnter () {
-      this.active = true
-    },
-    _mouseLeave () {
-      this.active = false
     }
   },
   created (){

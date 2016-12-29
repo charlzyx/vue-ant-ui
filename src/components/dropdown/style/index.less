@@ -5,8 +5,6 @@
 
 .@{dropdown-prefix-cls} {
   position: absolute;
-  left: -9999px;
-  top: -9999px;
   z-index: @zindex-dropdown;
   display: block;
   font-size: @font-size-base;
@@ -15,6 +13,7 @@
 
   &-wrap {
     position: relative;
+    display: inline-block;
 
     .@{ant-prefix}-btn > .@{iconfont-css-prefix}-down {
       .iconfont-size-under-12px(10px);
@@ -107,7 +106,7 @@
       font-family: "anticon" !important;
       position: absolute;
       content: "\e61f";
-      right: 16px;
+      right: 4px;
       color: @text-color-secondary;
       .iconfont-size-under-12px(10px);
     }

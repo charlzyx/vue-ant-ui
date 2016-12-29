@@ -3,7 +3,6 @@
 进度:
 - ### *General*
   - <done><router-link to="/button">Button 按钮</router-link></done>
-    - <todo>Menu.Button</todo>
   - <done><router-link to="/icon">Icon 图标</router-link></done>
 - ### *Layout*
   - <done><router-link to="/grid">Grid 栅格</router-link></done>
@@ -12,7 +11,7 @@
   - <done><router-link to="/anchor">Anchor 锚点</router-link></done>
   - <done><router-link to="/backtop">BackTop 回到顶部</router-link></done>
   - <done><router-link to="/breadcrumb">Breadcrumb 面包屑</router-link></done>
-  - <todo><router-link to="/dropdown">Dropdown 下拉菜单</router-link></todo>
+  - <done><router-link to="/dropdown">Dropdown 下拉菜单</router-link></done>
   - <done><router-link to="/menu">Menu 导航菜单</router-link></done>
   - <todo>Pagination 分页</todo>
   - <todo>Steps 步骤条</todo>

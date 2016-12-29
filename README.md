@@ -3,6 +3,10 @@
 [ant-design](https://github.com/ant-design/ant-design) `checkout 66f7b05`
 - 试图将这个[vue-ant-ui](https://github.com/kokoroX/vue-ant-ui)库升级到Vue2.0支持
 
+2016年12月29日17:08:09
+很懒惰, Menu,Dropdown 简单完成,不想整理
+
+<!--
 [ios中 `position: fixed;` 在 `input` 情况下错位]
 ```html
 <div class="header">
@@ -51,4 +55,4 @@
   height: 100%;
   overflow-y: auto;
 }
-```
+```-->

@@ -30,10 +30,6 @@ import getLevelBySubMenu from '../_util/getLevelBySubMenu'
 export default {
   name: 'ant-submenu',
   props: {
-    prefixCls: {
-      type: String,
-      default: 'ant-menu'
-    },
     disabled: {
       type: Boolean,
       default: false
@@ -70,6 +66,12 @@ export default {
     },
     mode () {
       return this.$parent.mode
+    },
+    prefixCls () {
+      const prefix = this.$parent && this.$parent.prefixCls
+          ? this.$parent.prefixCls
+          : 'ant-menu'
+      return prefix
     },
     selected () {
       return this.selectedKeys.indexOf(this.xkey) > -1
@@ -133,9 +135,16 @@ export default {
                         : openKeys.push(xkey) && openKeys
         this.rootHub.$emit('menu:update-open-keys', newOpenKeys)
       }
+    },
+    shouldClose () {
+      this.active = this.mode === 'inline'
     }
   },
-  created (){
+  created () {
+    this.rootHub.$on('menu:update-selected-keys', this.shouldClose)
+  },
+  beforeDestory () {
+    this.rootHub.$off('menu:update-selected-keys', this.shouldClose)
   }
 }
 </script>

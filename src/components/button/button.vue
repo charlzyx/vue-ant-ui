@@ -18,7 +18,7 @@
       },
       type: {
         type: String,
-        validator: curryingContains(['primary', 'ghost', 'dashed', undefined])
+        validator: curryingContains(['primary', 'ghost', 'dashed', 'default',undefined])
       },
       htmlType: {
         type: String,

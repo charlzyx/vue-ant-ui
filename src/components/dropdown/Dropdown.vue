@@ -1,14 +1,20 @@
 <template>
-  <div>
+  <div :class="wrapCls"
+        @mouseenter="_mouseenter"
+        @mouseleave="_mouseleave">
     <div class="ant-dropdown-link ant-dropdown-trigger"
-      @mouseenter="_mouseenter"
-      @mouseleave="_mouseleave"
-      @click="_click">
+      @mousemove="_mousemove"
+      @click="_linkClick" >
       <slot name="link"></slot>
     </div>
-    <div class="ant-dropdown" v-show="visible">
-      <slot name="overlay"></slot>
-    </div>
+    <transition name="slide-up">
+      <div class="ant-dropdown" 
+        v-show="visible"
+        @mousemove="_mousemove"
+        @click="_overlayClick" >
+        <slot name="overlay"></slot>
+      </div>
+    </transition>
   </div>
 </template>
 <script>
@@ -19,9 +25,7 @@ export default {
   name: 'ant-dropdown',
   props: {
     trigger: {
-      validator: function (val) {
-        return curryingContains(['click', 'hover'], val)
-      },
+      validator: curryingContains(['click', 'hover', undefined]),
       default: 'hover'
     },
     onVisibleChange: {
@@ -35,24 +39,44 @@ export default {
   },
   data: () => ({
     hover: false,
-    open: false
-    // visible: false
+    open: false,
+    delay: null,
+    hoverClose: true
   }),
   computed: {
+    wrapCls () {
+      const { prefixCls, visible } = this
+      return {
+        [`${prefixCls}-wrap`]: true,
+        [`${prefixCls}-wrap-open`]: visible
+      }
+    },
     visible () {
-      return true
-      // return this.trigger === 'hover' ? this.hover : this.open
+      // return true
+      return this.trigger === 'hover' ? this.hoverClose && this.hover : this.open
     }
   },
   methods: {
-    _click () {
+    _linkClick () {
       this.open = !this.open
     },
+    _overlayClick (e) {
+      const { target, currentTarget } = e
+      this.hoverClose = !currentTarget.contains(target)
+    },
     _mouseenter () {
+      clearTimeout(this.delay)
       this.hover = true
+      this.hoverClose = true
+    },
+    _mousemove (e) {
+      const { target, currentTarget } = e
+      this.hover = currentTarget.contains(target)
     },
     _mouseleave () {
-      this.hover = false
+      this.delay = setTimeout(()=> {
+        this.hover = false
+      }, 233)
     }
   }
 }

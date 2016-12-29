@@ -12,32 +12,34 @@
 export default {
   name: 'ant-menu-item-group',
   props: {
-    prefixCls: {
-      type: String,
-      default: "ant-menu-item-group"
-    },
     title: String
   },
   computed: {
     rootHub () {
       return this.$parent.rootHub || null
     },
+    prefixCls () {
+      const prefix = this.$parent && this.$parent.prefixCls
+          ? this.$parent.prefixCls
+          : 'ant-menu'
+      return prefix
+    },
     selectedKeys () {
       return this.$parent.selectedKeys
     },
     cls () {
       return {
-        [`${this.prefixCls}`]: true
+        [`${this.prefixCls}-item-group`]: true
       }
     },
     titleCls () {
       return {
-        [`${this.prefixCls}-title`]: true
+        [`${this.prefixCls}-item-group-title`]: true
       }
     },
     listCls () {
       return {
-        [`${this.prefixCls}-list`]: true
+        [`${this.prefixCls}-item-group-list`]: true
       }
     }
   }

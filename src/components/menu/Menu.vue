@@ -60,7 +60,7 @@ export default {
         [`${prefixCls}`]: true,
         [`${prefixCls}-root`]: true,
         [`${prefixCls}-${mode}`]: true,
-        [`${prefixCls}-${theme}`]: true
+        [`${prefixCls}-${theme}`]: true,
       }
     },
     _isMenuRoot () {return true}
