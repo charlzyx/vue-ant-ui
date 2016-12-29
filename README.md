@@ -4,7 +4,7 @@
 - 试图将这个[vue-ant-ui](https://github.com/kokoroX/vue-ant-ui)库升级到Vue2.0支持
 
 2016年12月29日17:08:09
-很懒惰, Menu,Dropdown 简单完成,不想整理
+Menu,Dropdown 简单完成,文档,很懒惰, 代码待整理
 
 <!--
 [ios中 `position: fixed;` 在 `input` 情况下错位]

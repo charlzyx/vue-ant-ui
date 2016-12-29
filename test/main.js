@@ -3,7 +3,7 @@ import Router from 'vue-router';
 import App from './App.vue';
 import AntUI from '../src/index';
 import './styles/site/theme/static/style'
-import './styles/highlight.scss'
+// import './styles/highlight.scss'
 
 Vue.use(Router);
 Vue.use(AntUI);

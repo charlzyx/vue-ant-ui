@@ -6,6 +6,7 @@
 <script>
 import 'highlight.js/styles/github.css'
 import './styles/github-markdown.css'
+import '../src/style'
 </script>
 <style>
   .markdown-body {

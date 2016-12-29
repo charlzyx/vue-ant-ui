@@ -57,5 +57,5 @@ const install = function (Vue) {
 if (typeof window !== 'undefined' && window.Vue) {
     install(window.Vue);
 }
-
+require('./style')
 module.exports = Object.assign(ANTUI, {install});
