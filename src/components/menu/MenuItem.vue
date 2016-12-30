@@ -19,7 +19,7 @@ function updateSelectedKeys (vm, path) {
     return vm.$parent && updateSelectedKeys(vm.$parent, path)
   }
 }
-import getLevelBySubMenu from '../_util/getLevelBySubMenu'
+import { getLevel } from '../_util'
 
 export default {
   name: 'ant-menu-item',
@@ -70,7 +70,7 @@ export default {
       }
     },
     levelStyle () {
-      const level = getLevelBySubMenu(this, 1)
+      const level = getLevel(this, 1)
       return this.mode === 'inline' 
         ? `padding-left: ${this.inlineIndent * level}px` 
         : null

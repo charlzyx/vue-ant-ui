@@ -8,8 +8,11 @@
     <div :class="titleCls" @click="_titleClick" :style="levelStyle">
       <slot name="title"></slot>
     </div>
-    <transition name="fade">
-      <ul :class="subCls" v-show="mode === 'inline' ? open : active">
+    <transition :name="mode === 'inline' ? 'max-height' : 'fade'">
+      <ul class="ant-motion-collapse ant-motion-collapse-active"
+        ref="subul"
+        :class="subCls"
+        v-show="mode === 'inline' ? open : active">
         <slot></slot>
       </ul>
     </transition>
@@ -25,7 +28,7 @@ function updateCurrentOpenChain (vm, path) {
   }
 }
 
-import getLevelBySubMenu from '../_util/getLevelBySubMenu'
+import { getLevel } from '../_util'
 
 export default {
   name: 'ant-submenu',
@@ -47,7 +50,7 @@ export default {
   data () {
     return {
       active: false,
-      delay: null
+      delay: null,
     }
   },
   computed: {
@@ -106,7 +109,7 @@ export default {
       }
     },
     levelStyle () {
-      const level = getLevelBySubMenu(this, 0)
+      const level = getLevel(this, 0)
       return this.mode === 'inline' 
         ? `padding-left: ${this.inlineIndent * level}px` 
         : null

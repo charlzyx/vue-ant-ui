@@ -5,11 +5,12 @@
 @import "motion/slide";
 @import "motion/swing";
 @import "motion/zoom";
+@import "motion/maxheight";
 
 // For common/openAnimation
 .ant-motion-collapse {
   overflow: hidden;
   &-active {
-    transition: height .2s @ease-out;
+    transition: all 0.2s @ease-out;
   }
 }

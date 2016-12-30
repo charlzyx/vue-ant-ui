@@ -1,5 +1,6 @@
 .slide-motion(@className, @keyframeName) {
   .make-motion(@className, @keyframeName);
+  .@{className}-appear-active,
   .@{className}-enter-active,
   .@{className}-leave-active {
     animation-timing-function: @ease-out-quint;

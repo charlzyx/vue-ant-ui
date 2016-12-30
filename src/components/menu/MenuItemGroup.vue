@@ -18,6 +18,10 @@ export default {
     rootHub () {
       return this.$parent.rootHub || null
     },
+    mode () {
+      return this.$parent.mode
+    },
+    _isItemGrop () {return true},
     prefixCls () {
       const prefix = this.$parent && this.$parent.prefixCls
           ? this.$parent.prefixCls

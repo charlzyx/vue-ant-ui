@@ -11,19 +11,27 @@
 }
 
 .make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
+  .@{className}-appear {
+    animation-play-state: paused;
+  }
   .@{className}-enter {
-    .motion-common(@duration);
     animation-play-state: paused;
   }
   .@{className}-leave {
-    .motion-common-leave(@duration);
     animation-play-state: paused;
   }
+  .@{className}-appear-active{
+    .motion-common(@duration);
+    animation-name: ~"@{keyframeName}In";
+    animation-play-state: running;
+  }
   .@{className}-enter-active{
+    .motion-common(@duration);
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
   }
   .@{className}-leave-active {
+    .motion-common-leave(@duration);
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
   }

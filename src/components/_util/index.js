@@ -111,3 +111,13 @@ export function scrollTo(href, target = window, callback = noop) {
   reqAnimFrame(frameFunc)
   history.pushState(null, '', href)
 }
+
+export function getLevel (vm, level) {
+  // 通过 SubMenu 来获取层级
+  if (vm._isSubMenu || vm._isItemGroup) level++
+  // 返回 level 条件为 
+  // 根菜单 || 没有父元素(只是为了不报错)
+  return vm._isMenuRoot || !vm.$parent
+    ? level 
+    : getLevel(vm.$parent, level)
+}

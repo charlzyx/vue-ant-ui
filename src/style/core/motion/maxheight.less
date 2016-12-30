@@ -3,26 +3,26 @@
   .@{className}-appear-active,
   .@{className}-enter-active,
   .@{className}-leave-active {
-    animation-timing-function: linear;
+    animation-timing-function: @ease-in-out-quint;
   }
 }
 
-.fade-motion(fade, antFade);
+.fade-motion(max-height, antFade);
 
 @keyframes antFadeIn {
   0% {
-    opacity: 0;
+    max-height: 0;
   }
   100% {
-    opacity: 1;
+    max-height: 100vh;
   }
 }
 
 @keyframes antFadeOut {
   0% {
-    opacity: 1;
+    max-height: 100vh;
   }
   100% {
-    opacity: 0;
+    max-height: 0;
   }
 }

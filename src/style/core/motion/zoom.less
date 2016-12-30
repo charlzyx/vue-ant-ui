@@ -1,11 +1,11 @@
 .zoom-motion(@className, @keyframeName, @duration: @animation-duration-base) {
   .make-motion(@className, @keyframeName, @duration);
-  .@{className}-enter,
-  .@{className}-appear {
+  .@{className}-enter-active,
+  .@{className}-appear-active {
     transform: scale(0); // need this by yiminghe
     animation-timing-function: @ease-out-circ;
   }
-  .@{className}-leave {
+  .@{className}-leave-active {
     animation-timing-function: @ease-in-out-circ;
   }
 }
