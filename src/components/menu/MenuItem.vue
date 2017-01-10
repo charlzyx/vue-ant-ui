@@ -4,25 +4,19 @@
       @mouseenter="active = true"
       @mouseleave="active = false"
       @click="_click"
-      :style="levelStyle"
-      >
+      :style="levelStyle" >
     <slot></slot>
   </li>
 </template>
 <script>
 function noop () {}
-function updateSelectedKeys (vm, path) {
-  if (vm._isMenuRoot) {
-    return path
-  } else {
-    vm.xkey && path.push(vm.xkey)
-    return vm.$parent && updateSelectedKeys(vm.$parent, path)
-  }
-}
+import { updateSelectedKeys } from './menuHelper'
 import { getLevel } from '../_util'
+import menuMixin from './menuMixin'
 
 export default {
   name: 'ant-menu-item',
+  mixins: [ menuMixin ],
   props: {
     disabled: {
       type: Boolean,
@@ -41,23 +35,17 @@ export default {
     active: false
   }),
   computed: {
-    rootHub () {
-      return this.$parent.rootHub || null
-    },
     mode () {
-      return this.$parent.mode
+      return this.rootHub.mode
     },
     selectedKeys () {
-      return this.$parent.selectedKeys
+      return this.rootHub.selectedKeys
     },
     selected () {
       return this.selectedKeys.indexOf(this.xkey) > -1
     },
     prefixCls () {
-      const prefix = this.$parent && this.$parent.prefixCls
-          ? this.$parent.prefixCls
-          : 'ant-menu'
-      return prefix
+      return this.rootHub.prefixCls || 'ant-menu'
     },
     cls () {
       const { prefixCls, active, selected, disabled } = this

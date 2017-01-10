@@ -9,27 +9,24 @@
   </li>
 </template>
 <script>
+import menuMixin from './menuMixin'
+
 export default {
   name: 'ant-menu-item-group',
   props: {
     title: String
   },
+  mixins: [ menuMixin ],
   computed: {
-    rootHub () {
-      return this.$parent.rootHub || null
-    },
     mode () {
-      return this.$parent.mode
+      return this.rootHub.mode
     },
     _isItemGrop () {return true},
     prefixCls () {
-      const prefix = this.$parent && this.$parent.prefixCls
-          ? this.$parent.prefixCls
-          : 'ant-menu'
-      return prefix
+      return this.rootHub.prefixCls || 'ant-menu'
     },
     selectedKeys () {
-      return this.$parent.selectedKeys
+      return this.rootHub.selectedKeys
     },
     cls () {
       return {
