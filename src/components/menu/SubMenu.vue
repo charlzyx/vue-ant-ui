@@ -82,7 +82,7 @@ export default {
         [`${submenuCls}-${mode}`]: true,
         [`${submenuCls}-selected`]: selected,
         [`${submenuCls}-open`]: open || active,
-        [`${submenuCls}-active`]: active
+        [`${submenuCls}-active`]: selected || active
       }
     },
     titleCls () {

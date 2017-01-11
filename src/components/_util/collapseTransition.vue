@@ -1,7 +1,9 @@
 <template>
   <transition name="collapse" 
+      @before-enter="beforeEnter"
       @enter="enter"
       @after-enter="afterEnter"
+      @before-leave="beforeLeave"
       @leave="leave"
       @after-leave="afterLeave" >
     <slot></slot>
@@ -13,48 +15,35 @@ import menuMixin from '../menu/menuMixin'
 export default {
   mixins: [ menuMixin ],
   methods: {
-    enter(el) {
-      if (!el.dataset) el.dataset = {};
-      el.dataset.oldPaddingTop = el.style.paddingTop;
-      el.dataset.oldPaddingBottom = el.style.paddingBottom;
-      el.dataset.oldOverflow = el.style.overflow;
-      
+    beforeEnter (el) {
       el.style.height = '0';
-      el.style.paddingTop = 0;
-      el.style.paddingBottom = 0;
-      el.style.display = 'block';
+    },
+    enter (el) {
+      el.dispaly = 'block'
+      el.style.height = el.scrollHeight + 'px';
       el.style.overflow = 'hidden';
     },
 
-    afterEnter(el) {
-      if (el.scrollHeight !== 0) {
-        el.style.height = el.scrollHeight + 'px';
-        el.style.paddingTop = el.dataset.oldPaddingTop;
-        el.style.paddingBottom = el.dataset.oldPaddingBottom;
-      } else {
-        el.style.height = '';
-        el.style.paddingTop = el.dataset.oldPaddingTop;
-        el.style.paddingBottom = el.dataset.oldPaddingBottom;
-      }
-      
-      el.style.display = '';
-      el.style.overflow = el.dataset.oldOverflow;
+    afterEnter (el) {
+      el.style.height  = ''
+      el.dispaly = ''
+      el.style.overflow = ''
     },
-
-    leave(el) {
-      el.style.display = el.style.height = '';
-      el.style.overflow = el.dataset.oldOverflow;
-      el.style.paddingTop = el.dataset.oldPaddingTop;
-      el.style.paddingBottom = el.dataset.oldPaddingBottom;
+    beforeLeave (el) {
+      el.dispaly = 'block'
+      el.style.height = el.scrollHeight + 'px';
+      el.style.overflow = 'hidden';
     },
-    afterLeave(el) {
-      if (el.scrollHeight !== 0) {
-        setTimeout(() => {
-          el.style.height = 0;
-          el.style.paddingTop = 0;
-          el.style.paddingBottom = 0;
-        });
-      }
+    leave (el) {
+      setTimeout(() => {
+        el.style.height = 0;
+        el.dispaly = ''
+      });
+    },
+    afterLeave (el) {
+      el.style.height  = ''
+      el.dispaly = ''
+      el.style.overflow = ''
     }
   }
 }

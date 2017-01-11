@@ -3,7 +3,7 @@
   .@{className}-appear-active,
   .@{className}-enter-active,
   .@{className}-leave-active {
-    transition: height @animation-duration-base @ease-in-out-quint;
+    transition: all @animation-duration-base @ease-in-out-quint;
     animation-timing-function: @ease-in-out-quint;
   }
 }
@@ -12,18 +12,18 @@
 
 @keyframes antFadeIn {
   0% {
-    opacity: 0;
+    // opacity: 0;
   }
   100% {
-    opacity: 1;
+    // opacity: 1;
   }
 }
 
 @keyframes antFadeOut {
   0% {
-    opacity: 0;
+    // opacity: 1;
   }
   100% {
-    opacity: 1;
+    // opacity: 0;
   }
 }
