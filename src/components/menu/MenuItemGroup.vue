@@ -18,16 +18,7 @@ export default {
   },
   mixins: [ menuMixin ],
   computed: {
-    mode () {
-      return this.rootHub.mode
-    },
     _isItemGrop () {return true},
-    prefixCls () {
-      return this.rootHub.prefixCls || 'ant-menu'
-    },
-    selectedKeys () {
-      return this.rootHub.selectedKeys
-    },
     cls () {
       return {
         [`${this.prefixCls}-item-group`]: true

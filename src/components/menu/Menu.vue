@@ -9,6 +9,7 @@
 function noop () {}
 import Hub from '../_util/hubPool'
 import { curryingContains } from '../_util'
+import Vue from 'vue'
 
 export default {
   name: 'ant-menu',
@@ -65,38 +66,29 @@ export default {
     },
     _isMenuRoot () {return true},
     rootHub () {
-      const {
-        uid,
-        selectedKeys,
-        openKeys,
-        prefixCls,
-        mode,
-        focusSubmenu,
-        defaultSelectedKeys,
-        defaultOpenKeys
-      } = this
-      const rootHub = Hub.getHubByUid(uid)
-
-      rootHub.selectedKeys = selectedKeys
-      rootHub.openKeys = openKeys
-      rootHub.prefixCls = prefixCls 
-      rootHub.mode = mode 
-      rootHub.focusSubmenu = focusSubmenu 
-      rootHub.defaultSelectedKeys = defaultSelectedKeys 
-      rootHub.defaultOpenKeys = defaultOpenKeys 
-      
+      let rootHub = Hub.getHubByUid(this.uid)
+      const KEYS = [
+        'selectedKeys',
+        'openKeys',
+        'prefixCls',
+        'mode',
+        'focusSubmenu',
+        'defaultSelectedKeys',
+        'defaultOpenKeys'
+      ]
+      KEYS.forEach(key => {
+        rootHub[key] = this[key]
+      })
       return rootHub
     }
   },
   methods: {
     updateSelectedKeys (newkeys) {
       this.$set(this, 'selectedKeys', newkeys)
-      console.log('selectedKeys', this.selectedKeys)
       this.onClick(JSON.parse(JSON.stringify(newkeys)))
     },
     updateOpenKeys (newkeys) {
       this.$set(this, 'openKeys', newkeys)
-      console.log('openKeys', this.openKeys)
       this.onOpenChange(JSON.parse(JSON.stringify(newkeys)))
     }
   },

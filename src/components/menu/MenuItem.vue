@@ -35,18 +35,6 @@ export default {
     active: false
   }),
   computed: {
-    mode () {
-      return this.rootHub.mode
-    },
-    selectedKeys () {
-      return this.rootHub.selectedKeys
-    },
-    selected () {
-      return this.selectedKeys.indexOf(this.xkey) > -1
-    },
-    prefixCls () {
-      return this.rootHub.prefixCls || 'ant-menu'
-    },
     cls () {
       const { prefixCls, active, selected, disabled } = this
       const prefix = prefixCls + '-item'

@@ -52,24 +52,6 @@ export default {
   },
   computed: {
     _isSubMenu () {return true},
-    selectedKeys () {
-      return this.rootHub.selectedKeys
-    },
-    openKeys () {
-      return this.rootHub.openKeys
-    },
-    focusSubmenu () {
-      return this.rootHub.focusSubmenu
-    },
-    mode () {
-      return this.rootHub.mode
-    },
-    prefixCls () {
-      return this.rootHub.prefixCls || 'ant-menu'
-    },
-    selected () {
-      return this.selectedKeys.indexOf(this.xkey) > -1
-    },
     open () {
       const { openKeys, xkey } = this
       return openKeys.indexOf(xkey) > -1
@@ -82,7 +64,7 @@ export default {
         [`${submenuCls}-${mode}`]: true,
         [`${submenuCls}-selected`]: selected,
         [`${submenuCls}-open`]: open || active,
-        [`${submenuCls}-active`]: selected || active
+        [`${submenuCls}-active`]: mode === 'inline' ? selected : active
       }
     },
     titleCls () {
@@ -121,11 +103,11 @@ export default {
       if (mode === 'inline') {
         let newOpenKeys
         newOpenKeys = open
-                      ? openKeys.map(key => key === xkey ? true : key)
-                                .filter(key => key !== true)
-                      : focusSubmenu
-                        ? updateCurrentOpenChain(this, [])
-                        : openKeys.push(xkey) && openKeys
+          ? openKeys.map(key => key === xkey ? true : key)
+                    .filter(key => key !== true)
+          : focusSubmenu
+            ? updateCurrentOpenChain(this, [])
+            : openKeys.push(xkey) && openKeys
         this.rootHub.$emit('menu:update-open-keys', newOpenKeys)
       }
     },
