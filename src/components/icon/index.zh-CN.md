@@ -80,8 +80,8 @@ export default {
 }
 </script>
 
-<style scoped>
-.markdown .icons {
+<style>
+.markdown .anticons-list .icons {
   width: 100%;
 }
 ul.anticons-list {

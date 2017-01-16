@@ -13,7 +13,8 @@
   - <done><router-link to="/breadcrumb">Breadcrumb 面包屑</router-link></done>
   - <done><router-link to="/dropdown">Dropdown 下拉菜单</router-link></done>
   - <done><router-link to="/menu">Menu 导航菜单</router-link></done>
-  - <todo>Pagination 分页</todo>
+  - <done><router-link to="/pagination">Pagination 分页</router-link></done>
+    > - <todo>wait `select`</todo>
   - <todo>Steps 步骤条</todo>
   - <todo>Tabs 标签页</todo>
 - ### *DataEntry*

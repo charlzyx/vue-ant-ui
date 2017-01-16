@@ -343,7 +343,7 @@
 }
 
 .markdown-body a:not([href]) {
-  color: inherit;
+  /*color: inherit;*/
   text-decoration: none;
 }
 
@@ -489,7 +489,7 @@
 }
 
 .markdown-body li+li {
-  margin-top: 0.25em;
+  /*margin-top: 0.25em;*/
 }
 
 .markdown-body dl {

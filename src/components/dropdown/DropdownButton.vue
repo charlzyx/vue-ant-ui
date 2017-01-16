@@ -75,6 +75,7 @@ export default {
     _overlayClick (e) {
       const { target, currentTarget } = e
       this.hoverClose = !currentTarget.contains(target)
+      this.open = !this.open
     },
     _mouseenter () {
       clearTimeout(this.delay)

@@ -1,4 +1,4 @@
 import Pagination from './Pagination';
 
-export { PaginationProps } from './Pagination';
+require('./style')
 export default Pagination;

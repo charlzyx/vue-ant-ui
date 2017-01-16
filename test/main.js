@@ -62,6 +62,11 @@ const routes = [
     component: lazyLoading('pageMenu')
   },
   {
+    name: 'Pagination',
+    path: '/pagination',
+    component: lazyLoading('pagePagination')
+  },
+  {
     name: '404',
     path: '*',
     component: lazyLoading('Index.md')
