@@ -16,6 +16,7 @@ import Breadcrumb from './components/breadcrumb'
 import Dropdown from './components/dropdown'
 import Menu from './components/menu'
 import Pagination from './components/pagination'
+import Steps from './components/steps'
 // import { Select, Option, OptionGroup } from './components/select';
 
 const ANTUI = {
@@ -38,7 +39,9 @@ const ANTUI = {
     Submenu: Menu.SubMenu,
     Dropdown,
     DropdownButton: Dropdown.Button,
-    Pagination
+    Pagination,
+    Steps,
+    Step: Steps.Step
     // TimelineItem: Timeline.Item,
 };
 
