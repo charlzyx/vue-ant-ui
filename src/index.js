@@ -17,6 +17,7 @@ import Dropdown from './components/dropdown'
 import Menu from './components/menu'
 import Pagination from './components/pagination'
 import Steps from './components/steps'
+import Tabs from './components//tabs'
 // import { Select, Option, OptionGroup } from './components/select';
 
 const ANTUI = {
@@ -41,7 +42,9 @@ const ANTUI = {
     DropdownButton: Dropdown.Button,
     Pagination,
     Steps,
-    Step: Steps.Step
+    Step: Steps.Step,
+    Tabs,
+    TabPane: Tabs.TabPane
     // TimelineItem: Timeline.Item,
 };
 

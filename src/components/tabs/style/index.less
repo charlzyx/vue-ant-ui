@@ -190,11 +190,15 @@
   }
 
   &:not(&-vertical) {
+    > .@{tab-prefix-cls}-content {
+      width: 100%;
+    }
+
     .@{tab-prefix-cls}-content-animated {
       display: flex;
       flex-direction: row;
-      will-change: transform;
-      transition: transform 0.3s @ease-in-out;
+      will-change: margin-left;
+      transition: margin-left 0.3s @ease-in-out;
     }
 
     .@{tab-prefix-cls}-tabpane {

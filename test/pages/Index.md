@@ -15,8 +15,8 @@
   - <done><router-link to="/menu">Menu 导航菜单</router-link></done>
   - <done><router-link to="/pagination">Pagination 分页</router-link></done>
     > - <todo>wait `select`</todo>
-  - <todo><router-link to="/steps">Steps 步骤条</router-link></todo>
-  - <todo>Tabs 标签页</todo>
+  - <done><router-link to="/steps">Steps 步骤条</router-link></done>
+  - <todo><router-link to="/tabs">Tabs 标签页</router-link></todo>
 - ### *DataEntry*
   - <todo>AutoComplete 自动完成</todo>
   - <todo>Checkbox 多选框</todo>

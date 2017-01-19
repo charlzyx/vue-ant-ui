@@ -41,3 +41,10 @@ Ant Design 依次提供了三级选项卡，分别用于不同的场景。
 |------|------------------|-------------------------|--------|
 | key  | 对应 activeKey   | string                  | 无     |
 | tab  | 选项卡头显示文字 | React.ReactNode | 无     |
+<tabs-demo></tabs-demo>
+<script>
+import TabsDemo from 'abscomp/tabs/demo'
+export default {
+  components: { TabsDemo }
+}
+</script>

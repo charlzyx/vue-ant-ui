@@ -32,7 +32,7 @@
         <stepnext-md></stepnext-md>
       </div>
     </ant-code-box>
-    <ant-code-box title="竖直方向的步骤条" :code="verticalCode" id="demo-vertical">
+    <ant-code-box title="竖直方向的步骤条" :code="verticalCode" id="components-steps-demo-vertical">
       <div slot="instance">
         <vertical-demo></vertical-demo>
       </div>
@@ -40,7 +40,7 @@
         <vertical-md></vertical-md>
       </div>
     </ant-code-box>
-    <ant-code-box title="竖直方向的小型步骤条" :code="verticalsmallCode" id="demo-vertical-small">
+    <ant-code-box title="竖直方向的小型步骤条" :code="verticalsmallCode" id="components-steps-demo-vertical-small">
       <div slot="instance">
         <verticalsmall-demo></verticalsmall-demo>
       </div>
@@ -48,7 +48,7 @@
         <verticalsmall-md></verticalsmall-md>
       </div>
     </ant-code-box>
-    <ant-code-box title="步骤运行错误" :code="errorCode" id="demo-error">
+    <ant-code-box title="步骤运行错误" :code="errorCode" id="components-steps-demo-error">
       <div slot="instance">
         <error-demo></error-demo>
       </div>
