@@ -128,7 +128,7 @@ ul.anticons-list li.copied:after {
   opacity: 1;
   top: -10px;
 }
-.anticon {
+.anticons-list .anticon {
   font-size: 24px;
   margin: 12px 0 16px;
   transition: all .3s;
@@ -136,7 +136,7 @@ ul.anticons-list li.copied:after {
 ul.anticons-list li:hover .anticon {
   transform: scale(1.4);
 }
-.anticon-class {
+.anticons-list .anticon-class {
   display: block;
   text-align: center;
   transform: scale(0.83);
