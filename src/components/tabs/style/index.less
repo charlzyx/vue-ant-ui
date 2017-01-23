@@ -9,6 +9,9 @@
   overflow: hidden;
   .clearfix;
   color: @text-color;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 
   &-bar {
     outline: none;
@@ -27,6 +30,7 @@
   }
 
   &-bar {
+    // width: 100%;
     border-bottom: 1px solid @border-color-base;
     margin-bottom: 16px;
   }
@@ -188,6 +192,10 @@
     margin-right: 0;
     padding: 8px 16px;
   }
+  
+  &-content {
+    flex: 1;
+  }
 
   &:not(&-vertical) {
     > .@{tab-prefix-cls}-content {
@@ -257,8 +265,9 @@
   }
 
   &-vertical&-left {
+    flex-direction: row;
     > .@{tab-prefix-cls}-bar {
-      float: left;
+      // float: left;
       border-right: 1px solid @border-color-split;
       margin-right: -1px;
       margin-bottom: 0;
@@ -282,6 +291,7 @@
   }
 
   &-vertical&-right {
+    flex-direction: row-reverse;
     > .@{tab-prefix-cls}-bar {
       float: right;
       border-left: 1px solid @border-color-split;
@@ -303,6 +313,10 @@
     }
   }
 
+  &-bottom{
+    flex-direction: column-reverse;
+  }
+  
   &-bottom > &-bar {
     margin-bottom: 0;
     margin-top: 16px;
@@ -371,6 +385,7 @@
   &-extra-content {
     float: right;
     line-height: 32px;
+    width: 100%;
 
     .@{tab-prefix-cls}-new-tab {
       width: 20px;

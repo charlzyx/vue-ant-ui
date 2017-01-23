@@ -1,5 +1,6 @@
 <template>
   <div role="tabpanel"
+    v-if="shouldExist"
     :class="cls"
     :xkey="xkey"
     :aria-hidden="(!isActive).toString()">
@@ -17,17 +18,20 @@ export default {
     contentStyle: Object,
     tab: String,
     xkey: String,
-    // 从 slot 传值过来
-    activeKey: null
-  },
-  watch: {
-    tab () {
-      this.$parent.$forceUpdate();
-    }
+    disabled: {
+      type: Boolean,
+      default: false
+    },
+    iconHTML: String,
+    icon: String
   },
   computed: {
     isActive () {
       return this.$parent.activeKey === this.xkey
+    },
+    shouldExist () {
+      const { xkey, $parent } = this
+      return $parent.panes.find(item => item.xkey === this.xkey)
     },
     cls () {
       const { prefixCls, isActive } = this
@@ -36,6 +40,11 @@ export default {
         [`${prefixCls}-inactive`]: !isActive,
         [`${prefixCls}-active`]: isActive
       }
+    }
+  },
+  watch: {
+    tab () { // tab 标题
+      this.$parent.$forceUpdate();
     }
   },
   mounted() {

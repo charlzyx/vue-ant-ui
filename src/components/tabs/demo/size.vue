@@ -1,6 +1,6 @@
 
 <template>
-  <ant-tabs>
+  <ant-tabs size="small">
     <ant-tab-pane tab="问刘十九" xkey="baijuyi">
       <p>晚来天欲雪,</p>
       <p>能饮一杯无?</p>

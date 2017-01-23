@@ -1,7 +1,12 @@
 <template>
   <div :class="cls">
     <div class="ant-tabs-bar" role="tablist" tabindex="0">
-      <div class="ant-tabs-nav-container ant-tabs-nav-container-scrolling">
+      <div style="float: right">
+        <div class="ant-tabs-extra-content">
+          <slot name="exContent"></slot>
+        </div>
+      </div>
+      <div class="ant-tabs-nav-container" :class="{'ant-tabs-nav-container-scrolling': !isVertical}">
         <template v-if="isOverflow">
           <span class="ant-tabs-tab-prev" 
             :class="{'ant-tabs-tab-btn-disabled': navOffset === 0}" 
@@ -20,15 +25,20 @@
           <div class="ant-tabs-nav-scroll">
             <div ref="nav" class="ant-tabs-nav ant-tabs-animated" :style="animatedNavStyle">
               <div class="ant-tabs-ink-bar ant-tabs-ink-bar-animated" :style="animatedInkBarStyle"></div>
-              <div v-for="tab in panes"
-                @click="changeActiveKey($event, tab.xkey)"
-                :xkey="tab.xkey"
-                :class="{'ant-tabs-tab-active': tab.xkey === activeKey}"
+              <div v-for="pane in tabs"
+                @click="tabClick($event, pane.xkey)"
+                :xkey="pane.xkey"
+                :class="{
+                  'ant-tabs-tab-active': pane.xkey === activeKey,
+                  'ant-tabs-tab-disabled': pane.disabled }"
                 class="ant-tabs-tab"
-                :aria-selected="(tab.xkey === activeKey).toString()"
+                :aria-selected="(pane.xkey === activeKey).toString()"
                 role="tab"
-                aria-disabled="false">
-                {{tab.tab}}
+                :aria-disabled="pane.disabled">
+                <i :class="`anticon anticon-${pane.icon}`" v-if="pane.icon"></i>
+                <span v-if="!pane.icon && pane.iconHTML" v-html="pane.iconHTML"></span>
+                {{pane.tab}}
+                <i class="anticon anticon-close" @click="deletePaneByKey(pane.xkey)" v-show="type === 'editable-card' && pane.xkey === activeKey"></i>
               </div>
             </div>
           </div>
@@ -41,7 +51,6 @@
   </div>
 </template>
 <script>
-import Hub from '../_util/hubPool'
 
 export default {
   name: 'ant-tabs',
@@ -74,29 +83,43 @@ export default {
     onEdit: {
       type: Function,
       default: () => {}
-    },
-    hideAdd: {
-      type: Boolean,
-      default: false
     }
   },
   computed: {
+    isVertical () {
+      return this.tabPosition === 'left' || this.tabPosition === 'right'
+    },
+    tabs () {
+      return this.panes.map(item => {
+        return {
+          xkey: item.xkey,
+          tab: item.tab,
+          disabled: item.disabled,
+          icon: item.icon,
+          iconHTML: item.iconHTML
+        }
+      })
+    },
     contentStyle () {
-      let { activeKey, panes } = this
+      let { isVertical, activeKey, panes } = this
       // 添加 index 字段
       if (panes.length === 0) return
       panes = panes.map((item, index) => ({...item, index: index}))
       const currentPane = panes.find(pane => pane.xkey === activeKey)
-      return {
-        marginLeft: `${ currentPane ? currentPane.index * -100 : 0 * -100 }%`
-      }
+      let style = isVertical
+        ? ''
+        : {marginLeft: `${ currentPane ? currentPane.index * -100 : 0 * -100 }%`}
+      return style
     },
     cls () {
-      const { prefixCls, tabPosition, type } = this
+      const { prefixCls, tabPosition, type, size } = this
       return {
         [`${prefixCls}`]: true,
         [`${prefixCls}-${tabPosition}`]: true,
-        [`${prefixCls}-${type}`]: true
+        [`${prefixCls}-vertical`]: tabPosition === 'left' || tabPosition === 'right',
+        [`${prefixCls}-${type}`]: true,
+        [`${prefixCls}-card`]: type.indexOf('card') > -1,
+        [`${prefixCls}-mini`]: size === 'small'
       }
     },
     animatedNavStyle () {
@@ -105,11 +128,16 @@ export default {
       }
     },
     animatedInkBarStyle () {
-      return {
-        display: 'block',
-        width: `${this.activeInk.offsetWidth}px`,
-        transform: `translate3d(${this.activeInk.offsetLeft}px, 0px, 0px)`
+      const { isVertical, activeInk } = this
+      let style = { display: 'block' }
+      if (isVertical) {
+        style.height = `${activeInk.offsetHeight}px`
+        style.transform = `translate3d(0px, ${activeInk.offsetTop}px, 0px)`
+      } else {
+        style.width = `${activeInk.offsetWidth}px`
+        style.transform = `translate3d(${activeInk.offsetLeft}px, 0px, 0px)`
       }
+      return style
     }
   },
   data () {
@@ -133,28 +161,45 @@ export default {
   methods: {
     addPanes(item) {
       this.panes.push(item)
-      this.$nextTick( _ => {
-        this.setPageInfo()
-        this.setIsOverflow()
-      })
+      this.reCalcuTabs()
+      this.onEdit(item.xkey, true)
+    },
+    deletePaneByKey (xkey) {
+      const { panes } = this
+      console.log('before', this.panes.map(item => item.xkey))
+      const NEWPANES = panes.filter(item => item.xkey !== xkey)
+      this.panes = [...NEWPANES]
+      console.log(this.panes.map(item => item.xkey))
+      this.reCalcuTabs()
+      this.onEdit(xkey, false)
     },
     activeDefaultKey () {
-      const { defaultActiveKey, $refs } = this
+      const { defaultActiveKey, $refs, changeActiveKey } = this
       const navChildren = $refs.nav.children
+      // 第[0]个为 ink-bar
+      const firstTab = navChildren[1]
+      if (!defaultActiveKey && firstTab) changeActiveKey(firstTab, firstTab.getAttribute('xkey'))
 
-      if (!defaultActiveKey && navChildren[1]) navChildren[1].click()
-      const activeTab = Array.prototype.find.call(navChildren, child => {
-        return child.getAttribute('xkey') === defaultActiveKey
-      })
-      activeTab ? activeTab.click() : navChildren[1].click()
+      const activeTab = Array.prototype.find
+        .call(navChildren, child => child.getAttribute('xkey') === defaultActiveKey)
+      activeTab && changeActiveKey(activeTab, activeTab.getAttribute('xkey'))
     },
-    changeActiveKey (e, key) {
+    tabClick (e, key) {
+      this.onTabClick(key)
       const target = e.currentTarget
+      if (this.activeKey === key) return
+      this.changeActiveKey(target, key)
+    },
+    changeActiveKey (el, key) {
+      const { onChange, adjustNavOffset, activeKey } = this
       this.$set(this, 'activeInk', {
-        offsetWidth: target.offsetWidth,
-        offsetLeft: target.offsetLeft
+        offsetWidth: el.offsetWidth,
+        offsetHeight: el.offsetHeight,
+        offsetLeft: el.offsetLeft,
+        offsetTop: el.offsetTop
       })
-      this.adjustNavOffset()
+      adjustNavOffset()
+      onChange(key)
       this.activeKey = key
     },
     adjustNavOffset () {
@@ -169,6 +214,12 @@ export default {
         : activeInkRight > ( navwrapWidth - navOffset )
           ? navwrapWidth - activeInkRight
           : navOffset
+    },
+    reCalcuTabs () {
+      this.$nextTick( _ => {
+        this.setPageInfo()
+        this.setIsOverflow()
+      })
     },
     setPageInfo (newCurrent = false) {
       const KEYS = ['current', 'count', 'navwrapWidth', 'navWidth']
@@ -185,38 +236,35 @@ export default {
         if (this.page[key] !== newPage[key]) this.page[key] = newPage[key]
       })
     },
-    changePage (step) {
-      const { current, count, navwrapWidth } = this.page
-      const nextPage = current + step
-
-      this.page.current = nextPage > count
-        ? count
-        : nextPage < 0
-          ? 0
-          : nextPage
-      this.navOffset = this.page.current * (-navwrapWidth)
-    },
     setIsOverflow () {
       const navwrapEl = this.$refs.navwrap
       const navEl = this.$refs.nav
       this.isOverflow =  navEl && navwrapEl
         ? navEl.offsetWidth > navwrapEl.offsetWidth
         : false
+    },
+    changePage (step) {
+      const { current, count, navwrapWidth } = this.page
+      const nextPage = current + step
+      this.page.current = nextPage > count
+        ? count
+        : nextPage < 0
+          ? 0
+          : nextPage
+      this.navOffset = this.page.current * (-navwrapWidth)
     }
   },
   mounted () {
+    this.reCalcuTabs()
     this.$nextTick( _ => {
-      this.setPageInfo()
-      this.setIsOverflow()
+      this.activeDefaultKey()
     })
-    // this.activeDefaultKey()
   },
   created () {
-    this.uid = (new Hub()).uid
-    window.addEventListener('resize', this.setPageInfo)
+    window.addEventListener('resize', this.reCalcuTabs)
   },
   destroyed () {
-    window.removeEventListener('resize', this.setPageInfo)
+    window.removeEventListener('resize', this.reCalcuTabs)
   }
 }
 </script>
